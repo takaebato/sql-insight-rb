@@ -1,0 +1,11 @@
+version: '3'
+services:
+  ruby-rust:
+    build:
+      context: .
+      args:
+        - RUBY_VERSION=${RUBY_VERSION:-3.0.4}
+    command: "/bin/bash -c 'bundle install && /bin/bash'"
+    tty: true
+    volumes:
+      - ./:/app/
