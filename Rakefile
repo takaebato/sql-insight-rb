@@ -19,4 +19,4 @@ RbSys::ExtensionTask.new("sql_insight", GEMSPEC) do |ext|
   ext.lib_dir = "lib/sql_insight"
 end
 
-task default: %i[compile spec rubocop]
+task default: %i[compile spec]

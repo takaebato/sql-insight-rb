@@ -1,12 +1,8 @@
-use magnus::{function, prelude::*, Error, Ruby};
+mod ruby_api;
 
-fn hello(subject: String) -> String {
-    format!("Hello from Rust, {subject}!")
-}
+use magnus::Error;
 
 #[magnus::init]
-fn init(ruby: &Ruby) -> Result<(), Error> {
-    let module = ruby.define_module("SqlInsight")?;
-    module.define_singleton_method("hello", function!(hello, 1))?;
-    Ok(())
+fn init() -> Result<(), Error> {
+    ruby_api::init()
 }
