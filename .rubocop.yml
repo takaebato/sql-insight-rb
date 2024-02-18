@@ -1,13 +1,36 @@
+inherit_gem:
+  syntax_tree: config/rubocop.yml
+
 AllCops:
-  TargetRubyVersion: 2.6
+  TargetRubyVersion: 3.0.2
+  NewCops: enable
 
 Style/StringLiterals:
   Enabled: true
-  EnforcedStyle: double_quotes
-
+  EnforcedStyle: single_quotes
 Style/StringLiteralsInInterpolation:
-  Enabled: true
-  EnforcedStyle: double_quotes
+  Enabled: false
+Style/Documentation:
+  Enabled: false
+Style/IfUnlessModifier:
+  Enabled: false
+Style/WhileUntilModifier:
+  Enabled: false
 
 Layout/LineLength:
-  Max: 120
+  Enabled: false
+
+Naming/AccessorMethodName:
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false
+Metrics/MethodLength:
+  Enabled: true
+  Max: 50
+Metrics/AbcSize:
+  Enabled: true
+  Max: 40
+Metrics/ParameterLists:
+  Enabled: true
+  Max: 10
