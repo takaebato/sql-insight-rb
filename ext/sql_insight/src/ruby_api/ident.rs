@@ -30,9 +30,12 @@ impl Default for RbIdent {
 }
 
 impl RbIdent {
-    pub fn new(value: String) -> Self {
+    pub fn new(value: String, quote: Option<char>) -> Self {
         Self {
-            inner: RefCell::new(Ident::new(value)),
+            inner: RefCell::new(Ident {
+                value,
+                quote_style: quote,
+            }),
         }
     }
 
@@ -61,7 +64,7 @@ impl RbIdent {
 
 pub fn init() -> Result<(), Error> {
     let class = root().define_class("Ident", class::object())?;
-    class.define_singleton_method("new", function!(RbIdent::new, 1))?;
+    class.define_singleton_method("new", function!(RbIdent::new, 2))?;
     class.define_method("value", method!(RbIdent::value, 0))?;
     class.define_method("value=", method!(RbIdent::set_value, 1))?;
     class.define_method("quote_style", method!(RbIdent::quote_style, 0))?;
