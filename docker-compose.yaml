@@ -4,8 +4,7 @@ services:
     build:
       context: .
       args:
-        - RUBY_VERSION=${RUBY_VERSION:-3.0.4}
-    command: "/bin/bash -c 'bundle install && /bin/bash'"
+        - RUBY_VERSION=${RUBY_VERSION:-3.0.2}
     tty: true
     volumes:
       - ./:/app/

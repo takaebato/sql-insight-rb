@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.description = 'Ruby bindings for the sql-insight, a toolkit for SQL query analysis and transformation supporting various SQL dialects'
   spec.homepage = 'https://github.com/takaebato/sql-insight-rb'
   spec.license = 'MIT'
-  spec.required_ruby_version = '>= 3.0.4'
+  spec.required_ruby_version = '>= 3.0.2'
   spec.required_rubygems_version = '>= 3.3.11'
 
   spec.metadata['allowed_push_host'] = "TODO: Set to your gem server 'https://example.com'"
