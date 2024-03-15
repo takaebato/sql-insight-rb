@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     sql_insight (0.1.0)
+      rb_sys (~> 0.9.85)
 
 GEM
   remote: https://rubygems.org/
