@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     sql_insight (0.1.0)
-      rb_sys (~> 0.9.85)
+      rb_sys (~> 0.9.90)
 
 GEM
   remote: https://rubygems.org/
@@ -21,7 +21,7 @@ GEM
     rake (13.1.0)
     rake-compiler (1.2.7)
       rake
-    rb_sys (0.9.88)
+    rb_sys (0.9.90)
     regexp_parser (2.9.0)
     rexml (3.2.6)
     rspec (3.13.0)
@@ -62,7 +62,7 @@ PLATFORMS
 DEPENDENCIES
   rake (~> 13.0)
   rake-compiler
-  rb_sys (~> 0.9.63)
+  rb_sys (~> 0.9.90)
   rspec (~> 3.0)
   rubocop (~> 1.21)
   sql_insight!
