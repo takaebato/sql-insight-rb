@@ -1,5 +1,5 @@
 use crate::ruby_api::{root, RbTableReference};
-use magnus::{class, function, method, Error, IntoValueFromNative, Module, Object};
+use magnus::{class, function, method, Error, IntoValueFromNative, Module, Object, RArray};
 use sql_insight::Tables;
 use std::cell::RefCell;
 
@@ -9,10 +9,10 @@ struct RbTablesInner {
 }
 
 impl RbTablesInner {
-    pub fn new(tables: magnus::RArray) -> Self {
-        Self {
-            tables: tables.to_vec::<RbTableReference>().unwrap(),
-        }
+    pub fn new(tables: RArray) -> Result<Self, Error> {
+        Ok(Self {
+            tables: tables.to_vec::<RbTableReference>()?,
+        })
     }
 }
 
@@ -32,30 +32,31 @@ impl Default for RbTables {
 }
 
 impl RbTables {
-    pub fn new(tables: magnus::RArray) -> Self {
-        Self {
-            inner: RefCell::new(RbTablesInner::new(tables)),
-        }
+    pub fn new(tables: RArray) -> Result<Self, Error> {
+        Ok(Self {
+            inner: RefCell::new(RbTablesInner::new(tables)?),
+        })
     }
 
-    pub fn from_tables(tables: &Tables) -> Result<RbTables, Error> {
-        Ok(RbTables {
+    pub fn from_tables(tables: &Tables) -> RbTables {
+        RbTables {
             inner: RefCell::new(RbTablesInner {
                 tables: tables
                     .0
                     .iter()
-                    .map(|t| RbTableReference::from_table_reference(t).unwrap())
+                    .map(RbTableReference::from_table_reference)
                     .collect(),
             }),
-        })
+        }
     }
 
-    fn tables(&self) -> magnus::RArray {
-        magnus::RArray::from_vec(self.inner.borrow().tables.clone())
+    fn tables(&self) -> RArray {
+        RArray::from_vec(self.inner.borrow().tables.clone())
     }
 
-    fn set_tables(&self, tables: magnus::RArray) {
-        self.inner.borrow_mut().tables = tables.to_vec::<RbTableReference>().unwrap();
+    fn set_tables(&self, tables: RArray) -> Result<(), Error> {
+        self.inner.borrow_mut().tables = tables.to_vec::<RbTableReference>()?;
+        Ok(())
     }
 }
 

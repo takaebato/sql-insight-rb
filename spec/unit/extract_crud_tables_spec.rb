@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 RSpec.describe 'SqlInsight.extract_crud_tables' do
-  it 'works' do
-    res = SqlInsight.extract_crud_tables('mysql', 'INSERT INTO t1 SELECT * FROM t2')
+  it 'extracts CRUD tables' do
+    res = SqlInsight.extract_crud_tables('generic', 'INSERT INTO t1 SELECT * FROM t2')
     expect(res.count).to eq(1)
     expect(res[0]).to be_a(SqlInsight::CrudTables)
 
@@ -29,5 +29,26 @@ RSpec.describe 'SqlInsight.extract_crud_tables' do
 
     delete_tables = res[0].delete_tables
     expect(delete_tables.count).to eq(0)
+  end
+
+  context 'when dialect is invalid' do
+    it 'raises ArgumentError' do
+      expect { SqlInsight.extract_crud_tables('foo', '') }.to raise_error(ArgumentError, 'Unknown dialect: foo')
+    end
+  end
+  context 'when SQL syntax is invalid' do
+    it 'raises SqlInsight::ParserError' do
+      expect do
+        SqlInsight.extract_crud_tables('generic', 'INSERT INTO t1 SELECT * FROM t2 WHERE a in (1, 2')
+      end.to raise_error(SqlInsight::ParserError)
+    end
+  end
+
+  context 'when SQL analysis fails' do
+    it 'raises SqlInsight::AnalysisError' do
+      expect { SqlInsight.extract_crud_tables('generic', 'SELECT * FROM catalog.schema.table.extra') }.to raise_error(
+        SqlInsight::AnalysisError,
+      )
+    end
   end
 end

@@ -1,4 +1,5 @@
 use crate::ruby_api::root;
+use core::fmt;
 use magnus::value::ReprValue;
 use magnus::{class, function, method, Error, Module, Object, TryConvert};
 use sql_insight::sqlparser::ast::Ident;
@@ -26,6 +27,12 @@ impl Default for RbIdent {
         Self {
             inner: RefCell::new(Ident::new(String::new())),
         }
+    }
+}
+
+impl fmt::Display for RbIdent {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "{}", self.inner.borrow())
     }
 }
 
@@ -60,6 +67,10 @@ impl RbIdent {
     fn set_quote_style(&self, quote_style: Option<char>) {
         self.inner.borrow_mut().quote_style = quote_style;
     }
+
+    fn to_s(&self) -> String {
+        self.inner.borrow().to_string()
+    }
 }
 
 pub fn init() -> Result<(), Error> {
@@ -69,5 +80,6 @@ pub fn init() -> Result<(), Error> {
     class.define_method("value=", method!(RbIdent::set_value, 1))?;
     class.define_method("quote_style", method!(RbIdent::quote_style, 0))?;
     class.define_method("quote_style=", method!(RbIdent::set_quote_style, 1))?;
+    class.define_method("to_s", method!(RbIdent::to_s, 0))?;
     Ok(())
 }

@@ -3,6 +3,7 @@
 require_relative 'sql_insight/version'
 require_relative 'sql_insight/sql_insight'
 require_relative 'sql_insight/dialect'
+require_relative 'sql_insight/errors'
 
 # https://github.com/rake-compiler/rake-compiler/blob/master/README.md
 # Technique to lookup the fat binaries first, and then lookup the gems compiled by the end user.

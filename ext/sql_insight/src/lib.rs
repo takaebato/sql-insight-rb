@@ -1,3 +1,4 @@
+mod errors;
 mod ruby_api;
 
 use magnus::Error;
