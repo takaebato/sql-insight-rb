@@ -46,6 +46,12 @@ jobs:
           if-no-files-found: error
           retention-days: 1
 
+      - name: build gem for platform ruby
+        if: matrix.ruby-platform == 'x86_64-linux' # Execute once
+        run: |
+          gem build sql_insight.gemspec --output=sql_insight-platform-ruby.gem
+          mv sql_insight-platform-ruby.gem pkg
+
       - name: Display structure of created files
         run: ls -R pkg/
 
