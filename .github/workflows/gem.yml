@@ -2,8 +2,10 @@ name: Cross Gem
 
 on:
   push:
-    tags:
-      - "v*"
+    branches:
+      - modify-release-workflow
+#    tags:
+#      - "v*"
 
 jobs:
   ci-data:
@@ -55,19 +57,19 @@ jobs:
       - name: Display structure of created files
         run: ls -R pkg/
 
-      - name: Release gem
-        if: startsWith(github.ref, 'refs/tags/v')
-        working-directory: pkg/
-        env:
-          GEM_API_KEY: ${{secrets.GEM_API_KEY}}
-        run: |
-          mkdir -p $HOME/.gem
-          touch $HOME/.gem/credentials
-          chmod 0600 $HOME/.gem/credentials
-          printf -- "---\n:rubygems_api_key: ${GEM_API_KEY}\n" > $HOME/.gem/credentials
-          for i in *.gem; do
-            if [ -f "$i" ]
-            then
-              gem push "$i" || true
-            fi
-          done
+#      - name: Release gem
+#        if: startsWith(github.ref, 'refs/tags/v')
+#        working-directory: pkg/
+#        env:
+#          GEM_API_KEY: ${{secrets.GEM_API_KEY}}
+#        run: |
+#          mkdir -p $HOME/.gem
+#          touch $HOME/.gem/credentials
+#          chmod 0600 $HOME/.gem/credentials
+#          printf -- "---\n:rubygems_api_key: ${GEM_API_KEY}\n" > $HOME/.gem/credentials
+#          for i in *.gem; do
+#            if [ -f "$i" ]
+#            then
+#              gem push "$i" || true
+#            fi
+#          done
