@@ -13,8 +13,8 @@ Gem::Specification.new do |spec|
   spec.homepage = 'https://github.com/takaebato/sql-insight-rb'
   spec.license = 'MIT'
   spec.required_ruby_version = '>= 3.0.2'
-  spec.required_rubygems_version = '>= 3.3.11'
-
+  # https://github.com/rubygems/rubygems/pull/5852#issuecomment-1231118509
+  spec.required_rubygems_version = '>= 3.3.22'
   spec.metadata['homepage_uri'] = spec.homepage
   spec.metadata['source_code_uri'] = 'https://github.com/takaebato/sql-insight-rb'
   spec.metadata['changelog_uri'] = 'https://github.com/takaebato/sql-insight-rb/blob/master/CHANGELOG.md'
