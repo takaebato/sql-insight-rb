@@ -2,8 +2,10 @@ name: Cross Gem
 
 on:
   push:
-    tags:
-      - "v*"
+    branches:
+      - release-gem-workflow
+#    tags:
+#      - "v*"
 
 jobs:
   ci-data:
